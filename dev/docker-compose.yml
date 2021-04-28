@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  proxy:
+  # proxy é um nginx
+    image: docker.icolabora.com.br/speech-proxy:0.0.2
+    container_name: proxy
+    environment:
+      - FRONTEND_HOST=frontend
+      - FRONTEND_PORT=9000
+    ports:
+      - "80:80"
+    extra_hosts:
+      - "turbina:${HOSTIP}"
+    depends_on:
+      - frontend
+
+  frontend:
+    image: node:12
+    container_name: frontend
+    working_dir: /app
+    environment:
+      - DEV=true
+    entrypoint:
+      - /bin/sh
+      - -c
+      - "npm install -g @vue/cli @quasar/cli && npm install && quasar dev"
+    ports:
+      - "9000:9000"
+    volumes:
+      - ..:/app:z
+    extra_hosts:
+      - "turbina:${HOSTIP}"
+      - code.icolabora.com.br:192.168.0.5

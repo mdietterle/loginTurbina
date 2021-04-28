@@ -34,8 +34,8 @@ export default {
   data () {
     return {
       user: {
-        username: '',
-        password: ''
+        username: 'spch2txt',
+        password: 'spch2txt!@#'
       },
       emptyUsername: false,
       emptyPass: false,
@@ -53,6 +53,7 @@ export default {
         // console.log('formData em index ', formData)
         // AuthService.login(formData).then(res => {
         AuthService.login(this.user).then(res => {
+          console.log('res', res)
           console.log('res ', res)
           // if (res.data.success === true) {
           // Ao fazer login, define o cookie com os dados do usuário e redireciona para a tela de ofertas.
@@ -61,12 +62,12 @@ export default {
           console.log('Fez login')
           this.$router.push({ name: 'uso' })
           // } else {
-          //   console.log('não logou')
-          //   this.isLogging = false
+          // console.log('não logou')
+          // this.isLogging = false
           // }
         }, err => {
           console.error(err.toString())
-          console.log('Não fez login')
+          console.log('Não fez login', err)
           this.isLogging = false
         })
       } else {

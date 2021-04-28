@@ -1,5 +1,5 @@
 // import store from '../store'
-// import router from '../router'
+import router from '../router'
 import axios from 'axios'
 
 const Request = {
@@ -14,7 +14,7 @@ const Request = {
       // 401 || 403: Usuário sem sessão no Turbina ou permissão negada.
       // if ((error && error.response) && (error.response.status === 401 || error.response.status === 403)) {
       console.log('403')
-      this.$route.push({ name: 'Uso' })
+      router.push({ name: 'Uso' })
       // setTimeout() here is a hack to push this message to snackBar after any other message
       // that the component making the request may send. This must be fixed in the components
       // making the requests, validating if (error.response.status === 401 || 403) and not trying to
@@ -25,7 +25,6 @@ const Request = {
       return Promise.reject(error)
     },
     config (primaryConfig = {}) {
-      console.log('primary', primaryConfig)
       return (secondaryConfig) => {
         const config = secondaryConfig || primaryConfig
         // Merge param config with default config

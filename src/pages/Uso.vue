@@ -10,7 +10,7 @@
     <q-date v-model="model" range />
   </div>
 
-  <q-btn color="teal">
+  <q-btn color="teal" @click="extratoGeral">
     <q-icon left size="3em" name="map" />
     <div>Buscar dados</div>
   </q-btn>
@@ -31,7 +31,8 @@ export default {
   },
   methods: {
     extratoGeral () {
-      ExtratoService.getTotalTime()
+      console.log('model', this.model)
+      ExtratoService.getTotalTime(this.model)
         .then(data => console.log(data))
         .catch(error => console.error('erro extrato geral ', error))
     }

@@ -75,8 +75,25 @@ module.exports = function (/* ctx */) {
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 8080,
-      open: true // opens browser window automatically
+      port: 9000,
+      open: true,
+      proxy: {
+        // proxy all requests starting with /api to jsonplaceholde
+        '/login': {
+          target: 'https://skydev.icolabora.com.br/api/auth/login',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/login': ''
+          }
+        },
+        '/api': {
+          target: 'http://localhost:3000/api',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      } // opens browser window automatically
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
